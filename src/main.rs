@@ -19,10 +19,9 @@ async fn get_images() {
 
   println!("{:?}", images_links);
 
-  let mut i = 0;
-  for link in images_links {
+  for (i, link) in images_links.iter().enumerate() {
     // get the image
-    let resp = client.get(link).send().await.unwrap();
+    let resp = client.get(*link).send().await.unwrap();
 
     // get the extension of the image
     let extension = link.split(".").last().unwrap();
@@ -42,7 +41,6 @@ async fn get_images() {
     // write the bytes to the file
     file.write_all(&bytes).await.unwrap();
 
-    i += 1;
   } 
 }
 
